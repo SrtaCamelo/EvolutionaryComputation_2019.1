@@ -18,10 +18,15 @@ def neural_network(pesos):
     #keras_layer.set_weights([pesos)
     # create model
     model = Sequential()
-    model.add(Dense(12, input_dim=4683, activation='relu'))
+    model.add(Dense(2, input_dim=2005, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(1, activation='sigmoid'))
-    model.set_weights(pesos)
+
+    pesos = np.array(pesos)
+    aux = [0,0]
+    aux = np.array(aux)
+    #model.get_layer["dense_1"].set_weights((np.array(pesos), aux))
+    model.set_weights((np.array(pesos), aux))
 
     return model
 def use_network(model,x_train, y_train, x_test, y_test):
@@ -29,8 +34,9 @@ def use_network(model,x_train, y_train, x_test, y_test):
     # mean_squared_error
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     #Train
-    model.fit(x_train, y_train, epochs=150, batch_size=10)
+    model.fit(x_train, y_train, epochs=150, batch_size=10, verbose= 0)
     #Test
-    scores = model.evaluate(x_test, y_test)
-    return scores
+    scores = model.evaluate(x_test, y_test,verbose= 0)
+    print("Evaluated")
+    return scores[1]
 

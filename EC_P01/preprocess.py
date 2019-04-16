@@ -86,13 +86,13 @@ def pandasDataFrame(tfidf):
     data = pd.DataFrame(tfidf.toarray())
     data = define_class_column(data,len(data))
     print(data)
-    data.to_csv("steam.csv", header=True, mode='a', sep=',')
+    data.to_csv("steam_100.csv", header=True, mode='a', sep=',')
 
 
 #------------Main---------------
 tags = ["positive","negative"]
 data = []
-#mainpath = "positive.txt"     #Change Here to fetch other DataSet
+mainpath = "positive.txt"     #Change Here to fetch other DataSet
 #data = openFile(mainpath)
 #print(len(data))
 
@@ -100,6 +100,7 @@ for tag in tags:
     path = tag+".txt"
     print(path)
     textList = openFile(path)
+    textList = textList[0:250]
     data.append(textList)
 
 textList = data[0]+data[1]
