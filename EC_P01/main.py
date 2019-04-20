@@ -8,7 +8,8 @@ import numpy as np
 from scipy import stats
 #----------------Modules ---------------------
 import ga_evo as ga
-import neural_network as nn
+import ee_evo as ee
+#import neural_network as nn
 
 #-------- Extructures----------------
 ga_accu = []
@@ -82,9 +83,11 @@ def call_classifiers(x_train, y_train, x_test, y_test):
     #model = nn.neural_network(0)
     #nn.use_network(model,x_train, y_train, x_test, y_test)
 
-    ga_accu  = ga.ga(population,x_train, y_train, x_test, y_test)
-    print(ga_accu)
-    ga.append(ga_accu)
+    #accu_ga = ga.ga(population,x_train, y_train, x_test, y_test)
+    accu_ee = ee.es(population,x_train, y_train, x_test, y_test)
+    print(accu_ee)
+    #ga_accu.append(accu_ga)
+    ee_accu.append(accu_ee)
 
 """
 Parametros: data : Pandas DataFrame

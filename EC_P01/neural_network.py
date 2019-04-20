@@ -19,7 +19,7 @@ def neural_network(pesos):
     # create model
     model = Sequential()
     model.add(Dense(2, input_dim=2005, activation='relu'))
-    model.add(Dense(8, activation='relu'))
+    #model.add(Dense(8, activation='relu'))
     model.add(Dense(1, activation='sigmoid'))
 
     pesos = np.array(pesos)
@@ -37,6 +37,5 @@ def use_network(model,x_train, y_train, x_test, y_test):
     model.fit(x_train, y_train, epochs=150, batch_size=10, verbose= 0)
     #Test
     scores = model.evaluate(x_test, y_test,verbose= 0)
-    print("Evaluated")
     return scores[1]
 

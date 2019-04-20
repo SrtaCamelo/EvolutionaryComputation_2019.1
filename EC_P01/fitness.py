@@ -16,6 +16,7 @@ Returns: Accuracy of the Neural Network using given data and given weights
 
 
 def fitness(pesos,x_train, y_train, x_test, y_test):
+    #evaluation = np.random.random()
     model = nn.neural_network(pesos)
     evaluation = nn.use_network(model,x_train, y_train, x_test, y_test)
 
