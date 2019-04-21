@@ -62,7 +62,6 @@ def es(population,x_train, y_train, x_test, y_test):
             crossed = crossover(father,mother,1)
             mutated = mutation(crossed)
             #print(crossed)
-            #print(mutated)
             decendants.append(mutated)
 
             number_decendants += 1
