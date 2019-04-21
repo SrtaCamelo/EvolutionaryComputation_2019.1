@@ -44,6 +44,10 @@ def fetch_n_better(decendants, ft_decendants, n):
     return new_population
 
 def es(population,x_train, y_train, x_test, y_test):
+
+
+
+
     #fitness_all = ft.calculate_pop_ft(population, x_train, y_train, x_test, y_test)
     num_generations = 3
     decendants = []
