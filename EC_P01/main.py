@@ -7,10 +7,10 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 #----------------Modules ---------------------
-import ga_evo as ga
-import ee_evo as ee
-import de_evo as de
-#import ep_evo as ep
+#import ga_evo as ga
+#import ee_evo as ee
+#import de_evo as de
+import ep_evo as ep
 #import neural_network as nn
 
 #-------- Extructures----------------
@@ -87,11 +87,12 @@ def call_classifiers(x_train, y_train, x_test, y_test):
 
     #accu_ga = ga.ga(population,x_train, y_train, x_test, y_test)
     #accu_ee = ee.es(population,x_train, y_train, x_test, y_test)
-    accu_de = de.de(population,x_train, y_train, x_test, y_test)
-    print(accu_de)
+    #accu_de = de.de(population,x_train, y_train, x_test, y_test)
+    accu_pe = ep.ep(population,x_train, y_train, x_test, y_test)
+    print(accu_pe)
     #ga_accu.append(accu_ga)
     #ee_accu.append(accu_ee)
-    de_accu.append(accu_de)
+    #de_accu.append(accu_de)
 
 """
 Parametros: data : Pandas DataFrame
