@@ -32,6 +32,7 @@ def fitness(features,x_train, y_train,x_validate, y_validate):
     #print(features)
     features = np.array(features)
     features = features > 0.5
+    features = list(features)
     x_train = x_train.loc[:, features]
     x_validate = x_validate.loc[:, features]
 

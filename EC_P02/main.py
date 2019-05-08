@@ -11,8 +11,10 @@ from itertools import compress
 #----------------Modules ---------------------
 import ga_evo as ga
 import ee_evo as ee
-#import de_evo as de
+import de_evo as de
 import ep_evo as ep
+import ee_cauchy as eec2
+import ee_cauchy2 as eec
 #import neural_network as nn
 import random_forest as rf
 
@@ -21,6 +23,9 @@ ga_accu = []
 ee_accu  = []
 ep_accu = []
 de_accu = []
+ee_caucht_accu = []
+ee_cauchy2_accu = []
+normal_accu = []
 
 
 def scores(acuracy_list):
@@ -81,26 +86,31 @@ def call_classifiers(x_train, y_train, x_test, y_test,x_validation,y_validation)
     #-----Generate Population------------
     pop_size = (20,1200) # 20 individuals
     population = np.random.uniform(low=0, high=1.0, size=pop_size)
-    #x_train = x_train[:,s.values]
+    population1 = population.copy()
+    population2 = population.copy()
+    population3 = population.copy()
+    population4 = population.copy()
+    population5 = population.copy()
+    population6 = population.copy()
 
-    #x_train = x_train[:,feature]
-    #x_train = x_train.columns[feature.all()]
-    #print(len(feature))
-    #x_train = list(compress(x_train, population[0]))
-    #print(x_train)
     #------------Call all Evolutionary Algoritms for same population------
 
-    #accu = rf.rf(x_train, y_train, x_test, y_test)
-    #print(accu)
-    print("EP")
-    #accu_ga = ga.ga(population,x_train, y_train, x_test, y_test,x_validation,y_validation)
-    #accu_ee = ee.es(population,x_train, y_train, x_test, y_test,x_validation,y_validation)
-    #accu_de = de.de(population,x_train, y_train, x_test, y_test,x_validation,y_validation)
-    accu_pe = ep.ep(population,x_train, y_train, x_test, y_test,x_validation,y_validation)
-    #ga_accu.append(accu_ga)
-    #ee_accu.append(accu_ee)
-    #de_accu.append(accu_de)
+    accu_ga = ga.ga(population1,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_ee = ee.es(population2,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_de = de.de(population3,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_pe = ep.ep(population4,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_eec = eec.es(population5,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_eec2 = eec2.es(population6,x_train, y_train, x_test, y_test,x_validation,y_validation)
+    accu_normal, model = rf.rf(x_train, y_train,x_validation,y_validation)
+    accu_normal = rf.rf_best(model,x_test, y_test)
+    ga_accu.append(accu_ga)
+    ee_accu.append(accu_ee)
+    de_accu.append(accu_de)
     ep_accu.append(accu_pe)
+    ee_caucht_accu.append(accu_eec)
+    ee_cauchy2_accu.append(accu_eec2)
+    normal_accu.append(accu_normal)
+
 
 """
 Parametros: data : Pandas DataFrame
@@ -111,6 +121,7 @@ repassando o conjunto de treinamento e teste pros classificadores.
 #--------------K-fold method (k = 10)---------------------
 def experiment_call(data,n_start, n_final,key):
     for i in range(50):
+        print(i)
         #Shuffle Data
         data = data.sample(frac=1)
     #---------Split Class column from features-------------
@@ -131,17 +142,15 @@ def prepareDataSet(datapath):
 #---------------------Main Code ------------------------
 path = "steam_100.csv"
 data = prepareDataSet(path)
-
 experiment_call(data,2,len(data.columns)-1,"class")
-"""
+
 #--------------These code lines above Do de SD, median and mean calculus---------------------------
 
-List_ofLists =[(ga_accu,"Genetic Algoritm"),(de_accu,"Discrete Evolution"), (ee_accu,"Evolutionary Estrategy"),(ep_accu,"Evolutionary Programming")]
+List_ofLists =[(normal_accu, "Normal RF"),(ga_accu,"Genetic Algoritm"),(de_accu,"Discrete Evolution"), (ee_accu,"Evolutionary Estrategy"),(ep_accu,"Evolutionary Programming"),(ee_caucht_accu, "Cauchy EE normal"), (ee_cauchy2_accu, "Cauchy EE Crossover")]
 
 for acuracy_list in List_ofLists:
-    print(acuracy_list[0])
+    #print(acuracy_list[0])
     showStatistics(acuracy_list)
 
 #-------------This call above calls t-studant hipotesis for classifiers variations-----------------
-#showHipotesis2()
-"""
+showHipotesis()

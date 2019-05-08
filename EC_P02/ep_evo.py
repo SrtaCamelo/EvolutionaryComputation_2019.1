@@ -49,45 +49,53 @@ def selectBest(union,populationSize,wins_idx):
 Function compares two cromossomes to check which has these has best fitness, returns the cromossome and the fitness
 Param: 
 """
-def best(best_child,best_child_ft,best_solution,best_solution_ft):
+def best(best_child,best_child_ft,best_child_model,best_solution,best_solution_ft,best_solution_model):
     if best_child_ft > best_solution_ft:
         best_ft = best_child_ft
         best = best_child
+        best_model = best_child_model
     else:
         best_ft = best_solution_ft
         best = best_solution
-    return best, best_ft
+        best_model = best_solution_model
+    return best, best_ft,best_model
 
 def ep(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
+    mut = 0.3
     num_genertions = 50
-    all_fitness = ft.calculate_pop_ft(population, x_train, y_train, x_test, y_test)
+    all_fitness,all_models = ft.calculate_pop_ft(population, x_train, y_train, x_validate, y_validate)
     max_fitness_idx = np.where(all_fitness == np.max(all_fitness))
     max_fitness_idx = max_fitness_idx[0][0]
 
     best_solution = population[max_fitness_idx]
     best_solution_ft = all_fitness[max_fitness_idx]
+    best_solution_model = all_models[max_fitness_idx]
     boutsize = 3
     si_wins = 0
 
     for i in range(num_genertions):
         children = []
         for parent in population:
-            child = mutation(parent)
+            child = mutation(parent,mut)
             children.append(child)
 
-        children_ft = ft.calculate_pop_ft(children, x_train, y_train, x_test, y_test)
+
+        children_ft, children_models = ft.calculate_pop_ft(children, x_train, y_train, x_validate, y_validate)
         max_fitness_idx = np.where(all_fitness == np.max(all_fitness))
         max_fitness_idx = max_fitness_idx[0][0]
 
         best_child = population[max_fitness_idx]
         best_child_ft = all_fitness[max_fitness_idx]
+        best_child_model = all_fitness[max_fitness_idx]
 
-        best_solution, best_solution_ft = best(best_child,best_child_ft,best_solution,best_solution_ft)
+        best_solution, best_solution_ft, best_solution_model = best(best_child,best_child_ft,best_child_model,best_solution,best_solution_ft,best_solution_model)
 
         union = np.concatenate((population,children))
         union = union.tolist()
         fitness = np.concatenate((all_fitness,children_ft))
         fitness = fitness.tolist()
+        #models = np.concatenate(all_models,children_models)
+        #models = models.tolist()
         wins_idx = []
         for si in union:
             idx_si = union.index(si)
@@ -103,7 +111,9 @@ def ep(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
             else:
                 wins_idx.append(actual_idx_sj)
         population = selectBest(union,len(population),wins_idx)
-    return best_solution_ft
+    best_accu = ft.fitness_best(best_solution,best_solution_model,x_test,y_test)
+    #print(best_accu)
+    return best_accu
 
 """
 pop_size = (5,3)

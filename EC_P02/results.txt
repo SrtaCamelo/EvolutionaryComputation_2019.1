@@ -1,0 +1,96 @@
+###-------Algoritm:-----### Normal RF 
+
+#---Mean:  0.6154545454545455 
+
+#---DP: 0.09427233277729329 
+
+#---Median: 0.65 
+
+###-------Algoritm:-----### Genetic Algoritm 
+
+#---Mean:  0.6427272727272727 
+
+#---DP: 0.03495451590021215 
+
+#---Median: 0.65 
+
+###-------Algoritm:-----### Discrete Evolution 
+
+#---Mean:  0.7354545454545455 
+
+#---DP: 0.05373334837205596 
+
+#---Median: 0.73 
+
+###-------Algoritm:-----### Evolutionary Estrategy 
+
+#---Mean:  0.7063636363636362 
+
+#---DP: 0.11439167166124704 
+
+#---Median: 0.75 
+
+###-------Algoritm:-----### Evolutionary Programming 
+
+#---Mean:  0.6227272727272728 
+
+#---DP: 0.0817423891369599 
+
+#---Median: 0.64 
+
+###-------Algoritm:-----### Cauchy EE normal 
+
+#---Mean:  0.6427272727272727 
+
+#---DP: 0.03495451590021215 
+
+#---Median: 0.65 
+
+###-------Algoritm:-----### Cauchy EE Parent F 
+
+#---Mean:  0.6427272727272727 
+
+#---DP: 0.03495451590021215 
+
+#---Median: 0.65 
+
+Noemal e GA
+T-value: -0.8996402158560991 P-value: 0.37901653903442256
+Noemal e EP
+T-value: -0.19331342576043894 P-value: 0.8486632272062882
+Normal e EE
+T-value: -2.034050236372665 P-value: 0.055425744351587855
+Noemal e DE
+T-value: -3.6677988781084 P-value: 0.0015275393143336837
+Noemal e EE_Cauchy
+T-value: -0.8996402158560991 P-value: 0.37901653903442256
+Noemal e EE_Cauchy2
+T-value: -0.8996402158560991 P-value: 0.37901653903442256
+GA e EP
+T-value: 0.7461271835934361 P-value: 0.46427105398981616
+GA e EE
+T-value: -1.7645065284251529 P-value: 0.09291492834859737
+GA e DE
+T-value: -4.797676428756345 P-value: 0.00010959416023053573
+GA e ee_cauchy
+T-value: 0.0 P-value: 1.0
+GA e ee_cauchy2
+T-value: 0.0 P-value: 1.0
+EP e EE
+T-value: -1.9729592151774125 P-value: 0.06248226618380172
+EP e DE
+T-value: -3.821994012180927 P-value: 0.0010663613800401728
+EP e ee_cauchy
+T-value: -0.7461271835934361 P-value: 0.46427105398981616
+EP e ee_cauchy2
+T-value: -0.7461271835934361 P-value: 0.46427105398981616
+EE e DE
+T-value: -0.7634209917863565 P-value: 0.4541242976861368
+EE e ee_cauchy
+T-value: 1.7645065284251529 P-value: 0.09291492834859737
+EE e ee_cauchy2
+T-value: 1.7645065284251529 P-value: 0.09291492834859737
+DE e ee_cauchy2
+T-value: 4.797676428756345 P-value: 0.00010959416023053573
+DE e ee_cauchy2
+T-value: 4.797676428756345 P-value: 0.00010959416023053573

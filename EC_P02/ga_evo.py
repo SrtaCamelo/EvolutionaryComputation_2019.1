@@ -50,6 +50,27 @@ def mutation(hemafrodite,mut):
         new_mutation.append(gene)
     return new_mutation
 
+"""
+Roleta de seleção, seleciona os pais de acordo com a sua probabilidade (ftness /fitness de todos
+Parametros: fitness -> Lista com todos os fitness de todos os integrantes da população
+            k -> Quantos individuos devem ser selecionados
+            nPop -> Tamanho da população
+"""
+def roulette_wheel_selection(fitness, k, nPop):
+    total_fit = float(sum(fitness))
+    relative_fitness = [f/total_fit for f in fitness]
+    prob = [sum(relative_fitness[:i+1])
+            for i in range(len(relative_fitness))]
+
+    chosen = []
+    for n in range(k):
+        r = np.random.uniform(low=0, high=1.0)
+        for i in range(nPop):
+            if r <= prob[i]:
+                chosen.append(i)
+                break
+    return chosen
+
 def mating_pool(population, all_fitness,number_parents):
     parents = []
     for i in range(number_parents):
@@ -68,23 +89,16 @@ def ga(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
     mut = 0.3
     cross = 0.2
     best = ft.find_best(population, x_train, y_train, x_validate, y_validate)
-    treshold = 0.5
+    #treshold = 0.5
     new_population = []
-    parents_mated = []
+    #parents_mated = []
     num_generations = 50
-    prk = []
     for k in range(num_generations):
         fitness_all, models_all = ft.calculate_pop_ft(population,x_train, y_train,x_validate, y_validate)
-        sum = 0
-        for i in range(len(population)):
-            sum = sum + fitness_all[i]
-            if(fitness_all[i] >= treshold):
-                break
-        for n in population:
-            new = fitness_all[n]/sum
-            prk.append(new)
+
         for j in range(int((len(population)/2))):
-            parents = mating_pool(population,fitness_all,2)
+            parents =roulette_wheel_selection(fitness_all,2,len(population))
+            parents = (population[parents[0]],population[parents[1]])
             offspring = crossover(parents[0],parents[1],cross)
             offspring2 = crossover(parents[0],parents[1],cross)
             offspring = mutation(offspring,mut)
@@ -108,7 +122,7 @@ def ga(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
 
     #best = ft.find_best(population,x_train, y_train, x_test, y_test)
     best = ft.fitness_best(best[0],best[1][1],x_test,y_test)
-    print(best)
+
     return best
 
 

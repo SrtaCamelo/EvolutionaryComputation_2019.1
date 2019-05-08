@@ -10,24 +10,28 @@ REFERENCIA: https://pablormier.github.io/2017/09/05/a-tutorial-on-differential-e
 """
 #----------- Evolutive Programming -----------------
 def de(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
-    fitness_all = ft.calculate_pop_ft(population, x_train, y_train, x_validate, y_validate)
-    weight_dimention = (2005,2)
+    fitness_all, models_all = ft.calculate_pop_ft(population, x_train, y_train, x_validate, y_validate)
+    weight_dimention = (1200)
     mut_constant = 0.5
     limiar_crossover = 0.6
     best_idx = 0
-    for i in range(len(population)):  #Iterate over all cromossomes
-        indices = [indices for indices in range(len(population)) if indices != i]
-        a, b, c = population[np.random.choice(indices, 3, replace=False)]
-        mutant = np.clip(a + mut_constant * (b - c), -1, 1)
-        cross_points = np.random.uniform(low = 0, high= 1,size = weight_dimention) < limiar_crossover
-        trial = np.where(cross_points, mutant, population[i])
-        trial_ft = ft.fitness(trial,x_train, y_train, x_test, y_test)
-        if trial_ft > fitness_all[i]:
-            fitness_all[i] = trial_ft
-            population[i] = trial_ft
-            if trial_ft > fitness_all[best_idx]:
-                best_idx = i
-                #best_weight = trial
+    generations = 50
+    for n in range(generations):
+
+        for i in range(len(population)):  #Iterate over all cromossomes
+            indices = [indices for indices in range(len(population)) if indices != i]
+            a, b, c = population[np.random.choice(indices, 3, replace=False)]
+            mutant = np.clip(a + mut_constant * (b - c), -1, 1)
+            cross_points = np.random.uniform(low = 0, high= 1,size = weight_dimention) < limiar_crossover
+            trial = np.where(cross_points, mutant, population[i])
+            trial_ft, trial_model = ft.fitness(trial,x_train, y_train, x_test, y_test)
+            if trial_ft > fitness_all[i]:
+                fitness_all[i] = trial_ft
+                population[i] = trial_ft
+                if trial_ft > fitness_all[best_idx]:
+                    best_idx = i
+                    #best_weight = trial
+
     return fitness_all[best_idx]
 
 

@@ -1,5 +1,5 @@
 #Projeto 01, Evolutinary Computing
-#Evolutionary Strategy Code
+#Evolutionary Strategy Code Adaptated - Cauchy (Normal Crossover)
 #Srta Camelo
 
 
@@ -45,10 +45,14 @@ def mutation(hemafrodite,mut):
     r2 = (math.sqrt(math.sqrt(((4*len(hemafrodite))))))**-1
     #print(r1, r2)
     for gene in hemafrodite:
+        #print(np.random.standard_cauchy(1))
         o = mut * np.exp((r1*random.gauss(0, 1))+ (r2*random.gauss(0, 1)))
-        new_gene = gene + (o * random.gauss(0, 1))
+        new_gene = gene + (o * np.random.standard_cauchy(1))
+
         if new_gene > 0:
             gene = new_gene
+
+        gene = float(gene)
         new_mutation.append(gene)
     return new_mutation
 
@@ -102,7 +106,6 @@ def es(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
         if ft_best[1][0] > best_fit[1][0]:
             best_fit = ft_best
     ee_accu = ft.fitness_best(best_fit[0], best_fit[1][1],x_test,y_test)
-
     return ee_accu
 
 """
