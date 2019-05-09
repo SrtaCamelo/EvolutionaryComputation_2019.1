@@ -61,7 +61,7 @@ def fetch_n_better(decendants, ft_decendants, n):
 
 def es(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
     mut = 0.3
-    cross = 0.2
+    cross = 0.7
     #fitness_all = ft.calculate_pop_ft(population, x_train, y_train, x_test, y_test)
 
     best_fit = ft.find_best(population,x_train, y_train, x_validate, y_validate)

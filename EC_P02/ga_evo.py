@@ -87,7 +87,7 @@ def mating_pool(population, all_fitness,number_parents):
 
 def ga(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
     mut = 0.3
-    cross = 0.2
+    cross = 0.7
     best = ft.find_best(population, x_train, y_train, x_validate, y_validate)
     #treshold = 0.5
     new_population = []

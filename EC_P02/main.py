@@ -109,6 +109,7 @@ def call_classifiers(x_train, y_train, x_test, y_test,x_validation,y_validation)
     ep_accu.append(accu_pe)
     ee_caucht_accu.append(accu_eec)
     ee_cauchy2_accu.append(accu_eec2)
+    #print(accu_eec2)
     normal_accu.append(accu_normal)
 
 

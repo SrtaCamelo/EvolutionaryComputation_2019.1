@@ -73,9 +73,9 @@ def probability_sum(ft_instance,ft_all):
     sum_all_ft = np.sum(ft_all)
     prob = 1 - (ft_instance/sum_all_ft)
     return prob
-def es_c(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
+def es(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
     mut = 0.3
-    cross = 0.2
+    #cross = 0.2
 
 
     best_fit = ft.find_best(population,x_train, y_train, x_validate, y_validate)
@@ -112,7 +112,7 @@ def es_c(population,x_train, y_train,x_validate, y_validate, x_test, y_test):
                 if radom_gauss < mother_prob:
                     check2 = 0
 
-            crossed = crossover(father,mother,cross)
+            crossed = crossover(father,mother)
             mutated = mutation(crossed,mut)
             #print(crossed)
             decendants.append(mutated)
